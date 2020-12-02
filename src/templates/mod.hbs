@@ -1,12 +1,14 @@
 use crate::solution::Solution;
 
-mod day01;
-mod day02;
+{{#each day}}
+mod day{{this}};
+{{/each}}
 
 pub fn solve_day(day: u32) {
     match day {
-        01 => day01::Day {}.solve(),
-        02 => day02::Day {}.solve(),
+        {{#each day}}
+        {{this}} => day{{this}}::Day {}.solve(),
+        {{/each}}
         day => println!("{} has not been solved yet.", day),
     }
 }

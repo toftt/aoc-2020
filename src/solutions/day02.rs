@@ -1,8 +1,4 @@
 use crate::solution::Solution;
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-};
 
 pub struct PasswordPolicy {
     low: u32,
@@ -18,10 +14,12 @@ impl Solution for Day {
     type Output1 = u64;
     type Output2 = u64;
 
-    fn load_input(&self) -> Vec<PasswordPolicy> {
-        let file = File::open("input/day02").expect("no such file");
-        let reader = BufReader::new(file);
-        reader.lines().flatten().map(|l| {
+    fn get_input_file_path(&self) -> String {
+        "input/day02".to_string()
+    }
+
+    fn parse_input(&self, lines: Vec<String>) -> Vec<PasswordPolicy> {
+        lines.iter().map(|l| {
             let mut iter = l.split_ascii_whitespace();
             let mut high_low = iter.next().unwrap().split('-');
 

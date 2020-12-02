@@ -1,8 +1,4 @@
 use crate::solution::Solution;
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-};
 
 pub struct Day;
 
@@ -11,10 +7,12 @@ impl Solution for Day {
     type Output1 = i64;
     type Output2 = i64;
 
-    fn load_input(&self) -> Vec<i64> {
-        let file = File::open("input/day01").expect("no such file");
-        let reader = BufReader::new(file);
-        reader.lines().flatten().flat_map(|l| l.parse()).collect()
+    fn get_input_file_path(&self) -> String {
+        "input/day01".to_string()
+    }
+
+    fn parse_input(&self, lines: Vec<String>) -> Vec<i64> {
+        lines.iter().flat_map(|line| line.parse()).collect()
     }
 
     fn part1(&self, input: &Vec<i64>) -> i64 {
