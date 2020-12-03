@@ -37,7 +37,7 @@ fn get_days() -> Vec<String> {
         result.push(path_string);
     }
     
-
+    //let result = result.iter().filter(|p| p.contains("day")).collect();
 
     result
 }
