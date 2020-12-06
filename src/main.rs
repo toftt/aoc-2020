@@ -1,3 +1,5 @@
+#![feature(iterator_fold_self)]
+
 use crate::solutions::solve_day;
 use handlebars::Handlebars;
 use std::{collections::HashMap, env, fs};

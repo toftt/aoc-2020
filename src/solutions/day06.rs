@@ -1,5 +1,6 @@
 use crate::solution::Solution;
-use std::collections::HashMap;
+use std::collections::HashSet;
+use std::iter::FromIterator;
 
 pub struct Day;
 
@@ -23,15 +24,12 @@ impl Solution for Day {
         input
             .iter()
             .map(|group| {
-                let mut questions: HashMap<char, u32> = HashMap::new();
-
-                for answers in group {
-                    for answer in answers.chars() {
-                        let count = questions.get(&answer).map_or(1, |val| val + 1);
-                        questions.insert(answer, count);
-                    }
-                }
-                questions.keys().len()
+                group
+                    .into_iter()
+                    .map(|ans| HashSet::from_iter(ans.chars()))
+                    .fold_first(|acc: HashSet<char>, set| acc.union(&set).cloned().collect())
+                    .unwrap()
+                    .len()
             })
             .sum()
     }
@@ -40,18 +38,11 @@ impl Solution for Day {
         input
             .iter()
             .map(|group| {
-                let mut questions: HashMap<char, usize> = HashMap::new();
-
-                for answers in group {
-                    for answer in answers.chars() {
-                        let count = questions.get(&answer).map_or(1, |val| val + 1);
-                        questions.insert(answer, count);
-                    }
-                }
-                questions
-                    .values()
-                    .filter(|v| **v == group.len())
-                    .collect::<Vec<_>>()
+                group
+                    .into_iter()
+                    .map(|ans| HashSet::from_iter(ans.chars()))
+                    .fold_first(|acc: HashSet<char>, set| acc.intersection(&set).cloned().collect())
+                    .unwrap()
                     .len()
             })
             .sum()
