@@ -11,8 +11,8 @@ impl Solution for Day {
         "input/day05".to_string()
     }
 
-    fn parse_input(&self, lines: Vec<String>) -> Vec<String> {
-        lines
+    fn parse_input(&self, puzzle_input: String) -> Vec<String> {
+        puzzle_input.lines().map(str::to_string).collect()
     }
 
     fn part1(&self, input: &Vec<String>) -> u32 {

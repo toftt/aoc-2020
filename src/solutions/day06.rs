@@ -3,7 +3,7 @@ use crate::solution::Solution;
 pub struct Day;
 
 impl Solution for Day {
-    type Input = Vec<i32>;
+    type Input = Vec<String>;
     type Output1 = i32;
     type Output2 = i32;
 
@@ -11,16 +11,15 @@ impl Solution for Day {
         "input/day06".to_string()
     }
 
-    fn parse_input(&self, lines: Vec<String>) -> Vec<i32> {
-        lines.iter().flat_map(|line| line.parse()).collect()
+    fn parse_input(&self, puzzle_input: String) -> Vec<String> {
+        puzzle_input.lines().map(str::to_string).collect()
     }
 
-    fn part1(&self, input: &Vec<i32>) -> i32 {
+    fn part1(&self, input: &Vec<String>) -> i32 {
         1
     }
 
-    fn part2(&self, input: &Vec<i32>) -> i32 {
+    fn part2(&self, input: &Vec<String>) -> i32 {
         1
     }
 }
-

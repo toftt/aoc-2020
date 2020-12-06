@@ -11,8 +11,8 @@ impl Solution for Day {
         "input/day01".to_string()
     }
 
-    fn parse_input(&self, lines: Vec<String>) -> Vec<i64> {
-        lines.iter().flat_map(|line| line.parse()).collect()
+    fn parse_input(&self, raw: String) -> Vec<i64> {
+        raw.lines().flat_map(|line| line.parse()).collect()
     }
 
     fn part1(&self, input: &Vec<i64>) -> i64 {

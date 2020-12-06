@@ -18,24 +18,26 @@ impl Solution for Day {
         "input/day02".to_string()
     }
 
-    fn parse_input(&self, lines: Vec<String>) -> Vec<PasswordPolicy> {
-        lines.iter().map(|l| {
-            let mut iter = l.split_ascii_whitespace();
-            let mut high_low = iter.next().unwrap().split('-');
+    fn parse_input(&self, raw: String) -> Vec<PasswordPolicy> {
+        raw.lines()
+            .map(|l| {
+                let mut iter = l.split_ascii_whitespace();
+                let mut high_low = iter.next().unwrap().split('-');
 
-            let low: u32 = high_low.next().unwrap().parse().unwrap();
-            let high: u32 = high_low.next().unwrap().parse().unwrap();
+                let low: u32 = high_low.next().unwrap().parse().unwrap();
+                let high: u32 = high_low.next().unwrap().parse().unwrap();
 
-            let letter = iter.next().unwrap().chars().next().unwrap();
-            let password = iter.next().unwrap().to_string();
+                let letter = iter.next().unwrap().chars().next().unwrap();
+                let password = iter.next().unwrap().to_string();
 
-            PasswordPolicy {
-                low,
-                high,
-                letter,
-                password
-            }
-        }).collect()
+                PasswordPolicy {
+                    low,
+                    high,
+                    letter,
+                    password,
+                }
+            })
+            .collect()
     }
 
     fn part1(&self, input: &Vec<PasswordPolicy>) -> u64 {

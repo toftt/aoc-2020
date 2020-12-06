@@ -134,7 +134,9 @@ impl Solution for Day {
         "input/day04".to_string()
     }
 
-    fn parse_input(&self, lines: Vec<String>) -> Vec<Passport> {
+    fn parse_input(&self, puzzle_input: String) -> Vec<Passport> {
+        let lines: Vec<String> = puzzle_input.lines().map(str::to_string).collect();
+
         let mut passports = vec![];
         let mut current = HashMap::new();
 

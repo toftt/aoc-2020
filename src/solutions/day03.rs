@@ -33,11 +33,9 @@ impl Solution for Day {
         "input/day03".to_string()
     }
 
-    fn parse_input(&self, lines: Vec<String>) -> Vec<String> {
-        lines
+    fn parse_input(&self, raw: String) -> Vec<String> {
+        raw.lines().map(|l| l.to_string()).collect()
     }
-
-
 
     fn part1(&self, input: &Vec<String>) -> usize {
         count_trees_for_slope(input, &(3, 1))
@@ -46,6 +44,9 @@ impl Solution for Day {
     fn part2(&self, input: &Vec<String>) -> usize {
         let slopes = vec![(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)];
 
-        slopes.iter().map(|slope| count_trees_for_slope(input, slope)).product::<usize>()
+        slopes
+            .iter()
+            .map(|slope| count_trees_for_slope(input, slope))
+            .product::<usize>()
     }
 }
