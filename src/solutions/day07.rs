@@ -10,11 +10,11 @@ fn get_count(record: &BagRecord, name: &str) -> u32 {
         return 1;
     }
     let mut count = 0;
-    for (name, bag) in record.get(name).unwrap() {
+    for (name, inner_bag_count) in record.get(name).unwrap() {
         let x = get_count(record, name);
         match x {
-            1 => count += bag,
-            _ => count += x * bag + bag,
+            1 => count += inner_bag_count,
+            _ => count += x * inner_bag_count + inner_bag_count,
         };
     }
 
@@ -65,11 +65,7 @@ impl Solution for Day {
             }
 
             let mut contains_shiny = false;
-            let mut list_of_keys = Vec::new();
-
-            for key in contents.keys() {
-                list_of_keys.push(key);
-            }
+            let mut list_of_keys: Vec<&str> = contents.keys().map(|k| k.as_str()).collect();
 
             while list_of_keys.len() != 0 {
                 let current = list_of_keys.pop().unwrap();
