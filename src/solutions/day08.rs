@@ -1,5 +1,6 @@
 use crate::solution::Solution;
 
+use crate::utils;
 use std::collections::HashMap;
 
 pub struct Day;
@@ -38,19 +39,18 @@ impl Solution for Day {
         "input/day08".to_string()
     }
 
-    fn parse_input(&self, puzzle_input: String) -> Instructions {
+    fn parse_input(&self, puzzle_input: String) -> Self::Input {
         puzzle_input
             .lines()
-            .map(|l| l.split_ascii_whitespace().collect::<Vec<&str>>())
-            .map(|v| (v[0].to_string(), v[1].parse::<i32>().unwrap()))
+            .map(|l| utils::split::<String, i32>(l, " "))
             .collect()
     }
 
-    fn part1(&self, input: &Instructions) -> i32 {
+    fn part1(&self, input: &Instructions) -> Self::Output1 {
         check_terminates(&input).1
     }
 
-    fn part2(&self, input: &Instructions) -> i32 {
+    fn part2(&self, input: &Instructions) -> Self::Output2 {
         let mut replacements: HashMap<String, String> = HashMap::new();
 
         replacements.insert(String::from("nop"), String::from("jmp"));

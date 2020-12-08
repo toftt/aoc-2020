@@ -11,16 +11,16 @@ impl Solution for Day {
         "input/day{{day}}".to_string()
     }
 
-    fn parse_input(&self, puzzle_input: String) -> Vec<String> {
+    fn parse_input(&self, puzzle_input: String) -> Self::Input {
         puzzle_input.lines().map(str::to_string).collect()
     }
 
-    fn part1(&self, input: &Vec<String>) -> i32 {
+    fn part1(&self, input: &Vec<String>) -> Self::Output1 {
         println!("First line of input: {}", input[0]);
         todo!();
     }
 
-    fn part2(&self, input: &Vec<String>) -> i32 {
+    fn part2(&self, input: &Vec<String>) -> Self::Output2 {
         println!("First line of input: {}", input[0]);
         todo!();
     }
