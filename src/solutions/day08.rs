@@ -46,11 +46,11 @@ impl Solution for Day {
             .collect()
     }
 
-    fn part1(&self, input: &Instructions) -> Self::Output1 {
+    fn part1(&self, input: &Self::Input) -> Self::Output1 {
         check_terminates(&input).1
     }
 
-    fn part2(&self, input: &Instructions) -> Self::Output2 {
+    fn part2(&self, input: &Self::Input) -> Self::Output2 {
         let mut replacements: HashMap<String, String> = HashMap::new();
 
         replacements.insert(String::from("nop"), String::from("jmp"));
