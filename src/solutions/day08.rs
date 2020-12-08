@@ -1,5 +1,7 @@
 use crate::solution::Solution;
 
+use std::collections::HashMap;
+
 pub struct Day;
 
 fn check_terminates(instructions: &Vec<(String, i32)>) -> (bool, i32) {
@@ -49,34 +51,24 @@ impl Solution for Day {
     }
 
     fn part2(&self, input: &Instructions) -> i32 {
-        // let transformations = [("nop", "jmp"), ("jmp", "nop")];
-        let mut eventual_acc = 9;
+        let mut replacements: HashMap<String, String> = HashMap::new();
+
+        replacements.insert(String::from("nop"), String::from("jmp"));
+        replacements.insert(String::from("jmp"), String::from("nop"));
 
         for (idx, line) in input.iter().enumerate() {
             let (ins, value) = line;
 
-            if &ins[..] == "nop" {
+            if let Some(new_ins) = replacements.get(ins) {
                 let mut new_vec = input.clone();
-                new_vec[idx] = ("jmp".to_string(), *value);
-                let (term, ac) = check_terminates(&new_vec);
+                new_vec[idx] = (new_ins.to_string(), *value);
 
-                if term {
-                    eventual_acc = ac;
-                    break;
-                }
-            }
-            if &ins[..] == "jmp" {
-                let mut new_vec = input.clone();
-                new_vec[idx] = ("nop".to_string(), *value);
-                let (term, ac) = check_terminates(&new_vec);
-
-                if term {
-                    eventual_acc = ac;
-                    break;
+                if let (true, acc) = check_terminates(&new_vec) {
+                    return acc;
                 }
             }
         }
 
-        eventual_acc
+        panic!("no result found!");
     }
 }
