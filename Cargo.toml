@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 handlebars = "3.5.1"
+graphlib = { version = "*", features = ["dot"] }
