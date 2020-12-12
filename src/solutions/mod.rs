@@ -23,6 +23,8 @@ mod day10;
 
 mod day11;
 
+mod day12;
+
 
 pub fn solve_day(day: u32) {
     match day {
@@ -48,6 +50,8 @@ pub fn solve_day(day: u32) {
         10 => day10::Day {}.solve(),
         
         11 => day11::Day {}.solve(),
+        
+        12 => day12::Day {}.solve(),
         
         day => println!("{} has not been solved yet.", day),
     }
