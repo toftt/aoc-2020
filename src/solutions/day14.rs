@@ -103,9 +103,3 @@ fn generate_all_masks(mask: &str) -> Vec<String> {
     p1.append(&mut p2);
     p1
 }
-
-#[test]
-fn generate() {
-    let result = generate_all_masks("0X1XX1");
-    println!("{:?}", result);
-}
