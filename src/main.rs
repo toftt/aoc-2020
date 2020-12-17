@@ -1,5 +1,6 @@
 #![feature(iterator_fold_self)]
 #![feature(destructuring_assignment)]
+#![feature(iter_advance_by)]
 
 use crate::solutions::solve_day;
 use handlebars::Handlebars;

@@ -99,7 +99,7 @@ fn get_ints_tests() {
 #[macro_export]
 macro_rules! assign_ints {
     ($s:expr, $( $var:ident ),+) => {
-        let mut ints_iter = get_ints($s).into_iter();
+        let mut ints_iter = crate::utils::get_ints($s).into_iter();
 
         $(
             #[allow(unused_variables)]
