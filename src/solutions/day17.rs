@@ -1,18 +1,19 @@
 use crate::solution::Solution;
 use itertools::Itertools;
 use std::collections::HashMap;
+use std::collections::HashSet;
 use std::hash::Hash;
 
 pub struct Day;
 
 trait Point
 where
-    Self: Sized + Eq + Hash,
+    Self: Sized + Eq + Hash + Copy,
 {
     fn get_neighboring_points(&self) -> Vec<Self>;
 }
 
-#[derive(Hash, PartialEq, Eq, Debug)]
+#[derive(Hash, PartialEq, Eq, Debug, Clone, Copy)]
 pub struct Point3D {
     x: i64,
     y: i64,
@@ -35,13 +36,14 @@ impl Point for Point3D {
     }
 }
 
+#[allow(dead_code)]
 struct PointGrid<T: Point> {
     grid: HashMap<T, bool>,
     pending_transformations: Vec<(T, bool)>,
 }
 
 impl<T: Point> PointGrid<T> {
-    fn new(points: Vec<(T, bool)>) -> Self {
+    fn _new(points: Vec<(T, bool)>) -> Self {
         let mut grid = HashMap::new();
         for (point, active) in points {
             grid.insert(point, active);
@@ -51,6 +53,35 @@ impl<T: Point> PointGrid<T> {
             grid,
             pending_transformations: vec![],
         }
+    }
+
+    fn _queue_transformations(&mut self, points: Vec<(&T, &bool)>) -> HashSet<T> {
+        let mut neighbors_outside_current_grid = HashSet::new();
+
+        for (point, active) in points.iter() {
+            let neighbors = point.get_neighboring_points();
+
+            let active_count = neighbors.iter().fold(0, |acc, p| {
+                let neigbor_point = self.grid.get(p);
+
+                if let None = neigbor_point {
+                    neighbors_outside_current_grid.insert(**point);
+                }
+
+                if let Some(true) = neigbor_point {
+                    return acc + 1;
+                }
+                acc
+            });
+
+            match (active, active_count) {
+                (true, 2) | (true, 3) => {},
+                (true, _) => { self.pending_transformations.push((**point, false)) },
+                (false, 3) => { self.pending_transformations.push((**point, false)) },
+                (false, _) => {},
+            };
+        }
+        neighbors_outside_current_grid
     }
 }
 
@@ -107,6 +138,7 @@ impl Solution for Day {
         4
     }
 
+    #[allow(unused_variables)]
     fn part2(&self, input: &Self::Input) -> Self::Output2 {
         4
     }
